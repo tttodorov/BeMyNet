@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://primefaces.org/ui ">
+
+<h:head></h:head>
+<body>
+<h1>Spring MVC Web with Primefaces</h1>
+<h:form id="formUsers">
+    <p:dataTable var="user" value="#{userView.users}" widgetVar="customerTable" emptyMessage="No customers found" filteredValue="#{userView.filteredCustomers}" onRowClick="PF=('greetingDialog').show()" rowKey="">
+        <p:column headerText="Id" sortBy="#{user.customerId}" filterBy="#{user.id}">
+            <h:outputText value="#{user.id}"/>
+        </p:column>
+        <p:column headerText="First Name" sortBy="#{user.firstName}" filterBy="#{user.firstName}">
+            <h:outputText value="#{user.firstName}"/>
+        </p:column>
+        <p:column headerText="Last Name" sortBy="#{user.lastName}" filterBy="#{user.lastName}">
+            <h:outputText value="#{user.lastName}"/>
+        </p:column>
+        <p:column style="width:32px;text-align: center">
+            <p:commandButton update=":formUsers:userDetails" oncomplete="PF('userDialog').show()" icon="ui-icon-search" title="View">
+                <f:setPropertyActionListener value="#{user}" target="#{userView.selectedUser}" />
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+
+    <p:dialog header="User Info" widgetVar="userDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="userDetails" style="text-align:center;">
+            <p:panelGrid columns="2" rendered="#{not empty userView.selectedUser}" columnClasses="label,value">
+                <h:outputText value="Id:" />
+                <h:outputText value="#{userView.selectedUser.id}" />
+
+                <h:outputText value="First Name" />
+                <h:outputText value="#{userView.selectedUser.firstName}" />
+
+                <h:outputText value="Last Name:" />
+                <h:outputText value="#{userView.selectedUser.lastName}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+</body>
+</html>
