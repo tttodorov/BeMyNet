@@ -1,2 +1,2 @@
-# net.be-my
-Be My Net
+# Be My Net
+Social Network project with Spring Boot and PrimeFaces
