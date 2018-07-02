@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+
+    <ui:composition template="../layout.xhtml">
+        <ui:define name="content">
+
+            <h1>Profile</h1>
+            <h:form id="formUsers">
+                <p:dataTable var="user" value="#{profileView.users}" widgetVar="usersTable" emptyMessage="#{msgs.noUsersFound}"
+                             filteredValue="#{profileView.filteredCustomers}"
+                             onRowClick="PF=('greetingDialog').show()">
+                    <p:column headerText="#{msgs.email}" sortBy="#{user.email}" filterBy="#{user.email}">
+                        <h:outputLink value="mailto:#{user.email}">
+                            <f:param name="subject" value="#{msgs.beMyNet}"/>
+                            <f:param name="body" value="#{msgs.chatWithMe}"/>
+                            <h:outputText value="#{user.email}"/>
+                        </h:outputLink>
+                    </p:column>
+                    <p:column headerText="#{msgs.firstName}" sortBy="#{user.firstName}" filterBy="#{user.firstName}">
+                        <h:outputText value="#{user.firstName}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.lastName}" sortBy="#{user.lastName}" filterBy="#{user.lastName}">
+                        <h:outputText value="#{user.lastName}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.sex}" sortBy="#{user.sex}" filterBy="#{user.sex}" filterMatchMode="equals">
+                        <f:facet name="filter">
+                            <p:selectOneButton onchange="PF('usersTable').filter()">
+                                <f:converter converterId="javax.faces.Boolean"/>
+                                <f:selectItem itemLabel="#{msgs.all}" itemValue=""/>
+                                <f:selectItem itemLabel="#{msgs.woman}" itemValue="true"/>
+                                <f:selectItem itemLabel="#{msgs.man}" itemValue="false"/>
+                            </p:selectOneButton>
+                        </f:facet>
+                        <h:outputText value="#{user.sex ? msgs.woman : msgs.man}"/>
+                    </p:column>
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":formUsers:userDetails" oncomplete="PF('userDialog').show()" icon="ui-icon-search" title="View">
+                            <f:setPropertyActionListener value="#{user}" target="#{profileView.selectedUser}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog header="#{msgs.userInfo}" widgetVar="userDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="userDetails" style="text-align:center;">
+                        <p:panelGrid columns="2" rendered="#{not empty profileView.selectedUser}" columnClasses="label,value">
+                            <h:outputText value="#{msgs.email}:"/>
+                            <h:outputLink value="mailto:#{profileView.selectedUser.email}">
+                                <f:param name="subject" value="#{msgs.beMyNet}"/>
+                                <f:param name="body" value="#{msgs.chatWithMe}"/>
+                                <h:outputText value="#{profileView.selectedUser.email}"/>
+                            </h:outputLink>
+
+                            <h:outputText value="#{msgs.firstName}:"/>
+                            <h:outputText value="#{profileView.selectedUser.firstName}"/>
+
+                            <h:outputText value="#{msgs.lastName}:"/>
+                            <h:outputText value="#{profileView.selectedUser.lastName}"/>
+
+                            <h:outputText value="#{msgs.birthDate}:"/>
+                            <h:outputText value="#{profileView.selectedUser.birthDay}.#{profileView.selectedUser.birthMonth}.#{profileView.selectedUser.birthYear}"/>
+
+                            <h:outputText value="#{msgs.sex}:"/>
+                            <h:outputText value="#{profileView.selectedUser.sex ? msgs.woman : msgs.man}"/>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>
