@@ -1,4 +1,4 @@
-package net.be_my.model;
+package net.bemy.model;
 
 import lombok.Data;
 

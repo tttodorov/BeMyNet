@@ -1,10 +1,10 @@
-package net.be_my.view;
+package net.bemy.view;
 
 import lombok.Data;
-import net.be_my.model.User;
+import net.bemy.model.User;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Named
 @ViewScoped
-public class ProfileView {
+public class Profile {
 	private List<User> users;
 
 	private List<User> filteredCustomers;

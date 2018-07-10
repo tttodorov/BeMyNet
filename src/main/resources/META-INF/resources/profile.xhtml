@@ -12,6 +12,18 @@
     <ui:composition template="layout.xhtml">
         <ui:define name="content">
 
+            <h:form>
+
+                <h:panelGrid columns="2">
+                    Language :
+                    <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
+                                     valueChangeListener="#{language.countryLocaleCodeChanged}">
+                        <f:selectItems value="#{language.countriesInMap}" />
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+            </h:form>
+
             <div class="authorization-div">
                 <sec:authorize access="hasRole('ROLE_USER')">
                     <p:outputLabel value="You have the USER role"/>
@@ -21,11 +33,9 @@
                 </sec:authorize>
             </div>
 
-            <h1>Profile</h1>
-
             <h:form id="formUsers">
-                <p:dataTable var="user" value="#{profileView.users}" widgetVar="usersTable" emptyMessage="#{msgs.noUsersFound}"
-                             filteredValue="#{profileView.filteredCustomers}"
+                <p:dataTable var="user" value="#{profile.users}" widgetVar="usersTable" emptyMessage="#{msgs.noUsersFound}"
+                             filteredValue="#{profile.filteredCustomers}"
                              onRowClick="PF=('greetingDialog').show()">
                     <p:column headerText="#{msgs.email}" sortBy="#{user.email}" filterBy="#{user.email}">
                         <h:outputLink value="mailto:#{user.email}">
@@ -53,32 +63,32 @@
                     </p:column>
                     <p:column style="width:32px;text-align: center">
                         <p:commandButton update=":formUsers:userDetails" oncomplete="PF('userDialog').show()" icon="ui-icon-search" title="View">
-                            <f:setPropertyActionListener value="#{user}" target="#{profileView.selectedUser}"/>
+                            <f:setPropertyActionListener value="#{user}" target="#{profile.selectedUser}"/>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
 
                 <p:dialog header="#{msgs.userInfo}" widgetVar="userDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="userDetails" style="text-align:center;">
-                        <p:panelGrid columns="2" rendered="#{not empty profileView.selectedUser}" columnClasses="label,value">
+                        <p:panelGrid columns="2" rendered="#{not empty profile.selectedUser}" columnClasses="label,value">
                             <h:outputText value="#{msgs.email}:"/>
-                            <h:outputLink value="mailto:#{profileView.selectedUser.email}">
+                            <h:outputLink value="mailto:#{profile.selectedUser.email}">
                                 <f:param name="subject" value="#{msgs.beMyNet}"/>
                                 <f:param name="body" value="#{msgs.chatWithMe}"/>
-                                <h:outputText value="#{profileView.selectedUser.email}"/>
+                                <h:outputText value="#{profile.selectedUser.email}"/>
                             </h:outputLink>
 
                             <h:outputText value="#{msgs.firstName}:"/>
-                            <h:outputText value="#{profileView.selectedUser.firstName}"/>
+                            <h:outputText value="#{profile.selectedUser.firstName}"/>
 
                             <h:outputText value="#{msgs.lastName}:"/>
-                            <h:outputText value="#{profileView.selectedUser.lastName}"/>
+                            <h:outputText value="#{profile.selectedUser.lastName}"/>
 
                             <h:outputText value="#{msgs.birthDate}:"/>
-                            <h:outputText value="#{profileView.selectedUser.birthDay}.#{profileView.selectedUser.birthMonth}.#{profileView.selectedUser.birthYear}"/>
+                            <h:outputText value="#{profile.selectedUser.birthDay}.#{profile.selectedUser.birthMonth}.#{profile.selectedUser.birthYear}"/>
 
                             <h:outputText value="#{msgs.sex}:"/>
-                            <h:outputText value="#{profileView.selectedUser.sex ? msgs.woman : msgs.man}"/>
+                            <h:outputText value="#{profile.selectedUser.sex ? msgs.woman : msgs.man}"/>
                         </p:panelGrid>
                     </p:outputPanel>
                 </p:dialog>

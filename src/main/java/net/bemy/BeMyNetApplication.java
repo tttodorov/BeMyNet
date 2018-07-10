@@ -1,4 +1,4 @@
-package net.be_my;
+package net.bemy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
