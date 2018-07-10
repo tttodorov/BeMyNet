@@ -1,7 +1,7 @@
-package net.my.be.view;
+package net.be_my.view;
 
 import lombok.Data;
-import net.my.be.model.User;
+import net.be_my.model.User;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

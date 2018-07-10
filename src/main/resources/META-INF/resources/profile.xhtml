@@ -1,19 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://primefaces.org/ui">
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<h:head></h:head>
-<h:body>
+<h:body onload="PF('greetingDialog').show()">
 
-    <ui:composition template="../layout.xhtml">
+    <ui:composition template="layout.xhtml">
         <ui:define name="content">
 
+            <div class="authorization-div">
+                <sec:authorize access="hasRole('ROLE_USER')">
+                    <p:outputLabel value="You have the USER role"/>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <p:outputLabel value="You have the ADMIN role"/>
+                </sec:authorize>
+            </div>
+
             <h1>Profile</h1>
+
             <h:form id="formUsers">
                 <p:dataTable var="user" value="#{profileView.users}" widgetVar="usersTable" emptyMessage="#{msgs.noUsersFound}"
                              filteredValue="#{profileView.filteredCustomers}"
