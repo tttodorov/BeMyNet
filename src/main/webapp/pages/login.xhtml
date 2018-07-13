@@ -11,13 +11,14 @@
     <ui:composition template="layout.xhtml">
         <ui:define name="content">
 
-            <h:form prependId="false">
+            <h:form prependId="false" onsubmit="this.action='#{request.contextPath}/loginAction';">
 
                 <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
                     <p:outputLabel value="Login failed!" styleClass="red"
                                    rendered="${!empty param['error']}"/>
 
-                    <p:inputText id="username" placeholder="#{msgs.email}"/>
+                    <p:inputText id="username" placeholder="#{msgs.username}"/>
+
                     <p:password id="password" placeholder="#{msgs.password}"/>
 
                     <p:commandButton value="Login" ajax="false"/>
