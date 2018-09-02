@@ -18,15 +18,24 @@
     <div id="page">
         <div id="header-container">
             <div id="header">
-                <ui:insert name="header">
-                    <p>Header</p>
-                    <sec:authorize access="isAuthenticated()">
-                        <h:form onsubmit="this.action='#{request.contextPath}/logout';"
-                                class="logout-form">
-                            <p:commandButton value="Logout" ajax="false"/>
-                        </h:form>
-                    </sec:authorize>
-                </ui:insert>
+
+                <sec:authorize access="isAuthenticated()">
+                    <h:form onsubmit="this.action='#{request.contextPath}/logout';"
+                            class="logout-form">
+                        <p:commandButton value="#{msgs.logout}" ajax="false"/>
+                    </h:form>
+                </sec:authorize>
+
+                <h:form>
+                    <h:panelGrid columns="2">
+                        Language:
+                        <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
+                                         valueChangeListener="#{language.countryLocaleCodeChanged}">
+                            <f:selectItems value="#{language.countriesInMap}" />
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                </h:form>
+
             </div>
         </div>
         <div id="messages-container">

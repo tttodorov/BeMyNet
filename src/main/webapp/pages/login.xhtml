@@ -14,14 +14,14 @@
             <h:form prependId="false" onsubmit="this.action='#{request.contextPath}/loginAction';">
 
                 <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
-                    <p:outputLabel value="Login failed!" styleClass="red"
+                    <p:outputLabel value="#{msgs.loginFailed}!" styleClass="red"
                                    rendered="${!empty param['error']}"/>
 
                     <p:inputText id="username" placeholder="#{msgs.username}"/>
 
                     <p:password id="password" placeholder="#{msgs.password}"/>
 
-                    <p:commandButton value="Login" ajax="false"/>
+                    <p:commandButton value="#{msgs.login}" ajax="false"/>
                 </p:panelGrid>
 
             </h:form>
