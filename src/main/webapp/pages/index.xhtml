@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:sec="http://www.springframework.org/security/tags"
@@ -13,12 +14,41 @@
 
             <div class="authorization-div">
                 <sec:authorize access="hasRole('ROLE_USER')">
-                    <p:outputLabel value="You have the USER role"/>
+                    <p:outputLabel value="#{msgs.youHaveUserRole}"/>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <p:outputLabel value="You have the ADMIN role"/>
+                    <p:outputLabel value="#{msgs.youHaveAdminRole}"/>
                 </sec:authorize>
             </div>
+
+            <h:form>
+                <p:dataTable var="customer" value="#{profile.customers}" widgetVar="customerTable" emptyMessage="No customers found" filteredValue="#{profile.filteredCustomers}">
+                    <p:column headerText="#{msgs.firstName}" sortBy="#{customer.firstName}" filterBy="#{customer.firstName}">
+                        <h:outputText value="#{customer.firstName}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.lastName}" sortBy="#{customer.lastName}" filterBy="#{customer.lastName}">
+                        <h:outputText value="#{customer.lastName}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.email}" sortBy="#{customer.email}" filterBy="#{customer.email}">
+                        <h:outputLink value="mailto:#{customer.email}">
+                            <f:param name="subject" value="#{msgs.beMyNet}" />
+                            <f:param name="body" value="#{msgs.chatWithMe}" />
+                            <h:outputText value="#{customer.email}" />
+                        </h:outputLink>
+                    </p:column>
+                    <p:column headerText="#{msgs.sex}" sortBy="#{customer.sex}" filterBy="#{customer.sex}">
+                        <f:facet name="filter">
+                            <p:selectOneButton onchange="PF('customerTable').filter()">
+                                <f:converter converterId="javax.faces.Boolean" />
+                                <f:selectItem itemLabel="#{msgs.all}" itemValue="" />
+                                <f:selectItem itemLabel="#{msgs.man}" itemValue="true" />
+                                <f:selectItem itemLabel="#{msgs.woman}" itemValue="false" />
+                            </p:selectOneButton>
+                        </f:facet>
+                        <h:outputText value="#{customer.sex ? msgs.man : msgs.woman}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
 
         </ui:define>
     </ui:composition>

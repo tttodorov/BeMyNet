@@ -11,7 +11,7 @@
     <ui:composition template="layout.xhtml">
         <ui:define name="content">
 
-            <h:form prependId="false" onsubmit="this.action='#{request.contextPath}/loginAction';">
+            <h:form id="loginForm" prependId="false" onsubmit="this.action='#{request.contextPath}/loginAction';">
 
                 <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
                     <p:outputLabel value="#{msgs.loginFailed}!" styleClass="red"

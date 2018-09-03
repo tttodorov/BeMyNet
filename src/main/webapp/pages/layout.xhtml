@@ -8,11 +8,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
-    <f:view contentType="text/html" encoding="UTF-8" />
+    <f:view contentType="text/html" encoding="UTF-8"/>
     <title>#{msgs.beMyNet}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="#{resource['/images/favicon.ico']}" />
-    <h:outputStylesheet library="css" name="style.css" value="#{resource['/css/style.css']}" />
-    <h:outputScript library="js" name="script.js" value="#{resource['/js/script.js']}" />
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['/images/favicon.ico']}"/>
+    <h:outputStylesheet library="css" name="style.css" value="#{resource['/css/style.css']}"/>
+    <h:outputScript library="js" name="script.js" value="#{resource['/js/script.js']}"/>
 </h:head>
 <h:body>
     <div id="page">
@@ -28,39 +28,27 @@
 
                 <h:form>
                     <h:panelGrid columns="2">
-                        Language:
+                        #{msgs.language}:
                         <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
                                          valueChangeListener="#{language.countryLocaleCodeChanged}">
-                            <f:selectItems value="#{language.countriesInMap}" />
+                            <f:selectItems value="#{language.countriesInMap}"/>
                         </h:selectOneMenu>
                     </h:panelGrid>
                 </h:form>
 
             </div>
         </div>
-        <div id="messages-container">
-            <div id="messages">
-                <ui:insert name="messages">
-                    <p>Messages</p>
-                </ui:insert>
-            </div>
-        </div>
         <div id="content-container">
             <div id="content">
                 <ui:insert name="content">
-                    <p>Main content</p>
-                </ui:insert>
-            </div>
-            <div id="sidebar">
-                <ui:insert name="rightnav">
-                    <p>Sidebar/Right-nav</p>
+                    <p>#{msgs.mainContent}</p>
                 </ui:insert>
             </div>
         </div>
         <div id="footer-container">
             <div id="footer">
                 <ui:insert name="footer">
-                    <p>Footer</p>
+                    <p>&copy; #{msgs.tttAllRightsReserved}</p>
                 </ui:insert>
             </div>
         </div>

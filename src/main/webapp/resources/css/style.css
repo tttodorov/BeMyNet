@@ -1,3 +1,15 @@
 html {
     background: #3cadd4;
 }
+
+#page {
+    margin-top: 10%;
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#header, #loginForm {
+    padding-left: 40%;
+    padding-right: 40%;
+}
