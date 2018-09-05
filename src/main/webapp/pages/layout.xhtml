@@ -28,11 +28,10 @@
 
                 <h:form>
                     <h:panelGrid columns="2">
-                        #{msgs.language}:
-                        <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
-                                         valueChangeListener="#{language.countryLocaleCodeChanged}">
+                        <p:outputLabel value="#{msgs.language}:"/>
+                        <p:selectOneMenu value="#{language.localeCode}" onchange="submit()" valueChangeListener="#{language.countryLocaleCodeChanged}" style="width:150px">
                             <f:selectItems value="#{language.countriesInMap}"/>
-                        </h:selectOneMenu>
+                        </p:selectOneMenu>
                     </h:panelGrid>
                 </h:form>
 
